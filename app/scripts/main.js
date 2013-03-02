@@ -15,6 +15,16 @@
 		App.setContainerSize();
 		// Uppdatera containerns storlek om storleken på fönstret ändras.
 		$(window).resize(App.setContainerSize);
+		
+		// Boota sliders
+		App.Elements.$vertical = $('#vertical-slider');
+		App.Elements.$horizontal = $('#horizontal-slider');
+
+		App.setSliderSize(App.Elements.$vertical);
+		App.setSlidesWidth($('.vertical-slide'));
+		$('button').on('click', function () {
+			App.slide(App.Elements.$vertical, $(this).data('dir'));
+		});
 	};
 	// Ta reda på webbläsarens fönsterstorlek
 	App.getWindowSize = function () {
@@ -37,9 +47,28 @@
 		});
 	};
 	
-	// # VERTICAL SLIDER
+	// # SLIDER
 	// Ta reda på hur många slides som finns
+	App.countSlides = function ($slider) {
+		return $slider.children().length;	
+	};
 	// Räkna ut bredden på #vertical-slider. (3 slides = 300%)
+	App.setSliderSize = function ($slider) {
+		$slider.css('width', App.countSlides($slider) + '00%');		
+	};
+	// Räkna ut bredden på varje slide
+	App.setSlidesWidth = function ($selector) {
+		$selector.each(function () {
+			var width = 100 / $selector.length;
+			$(this).css('width', width + '%')
+		});
+	};
+	App.slide = function ($slider, dir) {
+		$slider.animate({
+			marginLeft : dir+'=100%'
+		});
+	};
+
 	// Slide-funktion. 
 	// 		1. Kolla vilken position i slidern man är på.
 	// 		2. Ändra margin-left på #vertical-slider åt något håll när man klickar på något.
