@@ -1,1 +1,11 @@
 /* Will be compiled down to a single stylesheet with your sass files */
+body,
+h1,
+h2 {
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	background: #bada55;
+}
