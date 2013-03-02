@@ -6,6 +6,21 @@ h2 {
 	padding: 0;
 }
 
+button {
+	position: absolute;
+}
+
 .container {
+	overflow: hidden;
 	background: #bada55;
+}
+
+#vertical-slider {
+	position: relative;
+	height: 100%;
+}
+
+.vertical-slide {
+	float: left;
+	width: 100%;
 }
