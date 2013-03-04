@@ -20,7 +20,12 @@ button {
 	height: 100%;
 }
 
+#horizontal-slider {
+	position: relative;
+}
+
 .vertical-slide {
 	float: left;
 	width: 100%;
+	height: 100%;
 }
