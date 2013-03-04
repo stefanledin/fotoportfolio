@@ -16,14 +16,23 @@
 		// Uppdatera containerns storlek om storleken på fönstret ändras.
 		$(window).resize(App.setContainerSize);
 		
-		// Boota sliders
+		// Boota #vertical-slider
 		App.Elements.$vertical = $('#vertical-slider');
-		App.Elements.$horizontal = $('#horizontal-slider');
 
-		App.setSliderSize(App.Elements.$vertical);
-		App.setSlidesWidth($('.vertical-slide'));
-		$('button').on('click', function () {
-			App.slide(App.Elements.$vertical, $(this).data('dir'));
+		App.setSliderSize(App.Elements.$vertical, 'width');
+		App.setSlidesSize($('.vertical-slide'), 'width');
+		App.verticalSliderPosition = 0;
+		$('button.vertical-controller').on('click', function () {
+			App.verticalSlide($(this).data('dir'));
+		});
+
+		// Boota #horizontal-slider
+		App.Elements.$horizontal = $('#horizontal-slider');
+		App.setSliderSize(App.Elements.$horizontal, 'height');
+		App.setSlidesSize($('.horizontal-slide'), 'height');
+		App.horizontalSliderPosition = 0;
+		$('button.horizontal-controller').on('click', function () {
+			App.horizontalSlide($(this).data('dir'));
 		});
 	};
 	// Ta reda på webbläsarens fönsterstorlek
@@ -53,19 +62,23 @@
 		return $slider.children().length;	
 	};
 	// Räkna ut bredden på #vertical-slider. (3 slides = 300%)
-	App.setSliderSize = function ($slider) {
-		$slider.css('width', App.countSlides($slider) + '00%');		
+	App.setSliderSize = function ($slider, property) {
+		$slider.css(property, App.countSlides($slider) + '00%');		
 	};
 	// Räkna ut bredden på varje slide
-	App.setSlidesWidth = function ($selector) {
+	App.setSlidesSize = function ($selector, property) {
 		$selector.each(function () {
-			var width = 100 / $selector.length;
-			$(this).css('width', width + '%')
+			$(this).css(property, 100 / $selector.length + '%')
 		});
 	};
-	App.slide = function ($slider, dir) {
-		$slider.animate({
+	App.verticalSlide = function (dir) {
+		App.Elements.$vertical.animate({
 			marginLeft : dir+'=100%'
+		});
+	};
+	App.horizontalSlide = function (dir) {
+		App.Elements.$horizontal.animate({
+			marginTop : dir+'=100%'
 		});
 	};
 
