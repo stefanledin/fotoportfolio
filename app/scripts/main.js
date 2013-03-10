@@ -78,7 +78,7 @@
 	};
 	App.horizontalSlide = function (dir) {
 		App.Elements.$horizontal.animate({
-			marginTop : dir+'=100%'
+			marginTop : dir+'='+App.getWindowSize().height
 		});
 	};
 
