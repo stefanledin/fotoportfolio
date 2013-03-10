@@ -16,23 +16,23 @@
 		// Uppdatera containerns storlek om storleken på fönstret ändras.
 		$(window).resize(App.setContainerSize);
 		
-		// Boota #vertical-slider
-		App.Elements.$vertical = $('#vertical-slider');
-
-		App.setSliderSize(App.Elements.$vertical, 'width');
-		App.setSlidesSize($('.vertical-slide'), 'width');
-		App.verticalSliderPosition = 0;
-		$('button.vertical-controller').on('click', function () {
-			App.verticalSlide($(this).data('dir'));
-		});
-
 		// Boota #horizontal-slider
 		App.Elements.$horizontal = $('#horizontal-slider');
-		App.setSliderSize(App.Elements.$horizontal, 'height');
-		App.setSlidesSize($('.horizontal-slide'), 'height');
+
+		App.setSliderSize(App.Elements.$horizontal, 'width');
+		App.setSlidesSize($('.horizontal-slide'), 'width');
 		App.horizontalSliderPosition = 0;
 		$('button.horizontal-controller').on('click', function () {
 			App.horizontalSlide($(this).data('dir'));
+		});
+
+		// Boota #vertical-slider
+		App.Elements.$vertical = $('#vertical-slider');
+		App.setSliderSize(App.Elements.$vertical, 'height');
+		App.setSlidesSize($('.vertical-slide'), 'height');
+		App.horizontalSliderPosition = 0;
+		$('button.vertical-controller').on('click', function () {
+			App.verticalSlide($(this).data('dir'));
 		});
 	};
 	// Ta reda på webbläsarens fönsterstorlek
@@ -71,13 +71,13 @@
 			$(this).css(property, 100 / $selector.length + '%')
 		});
 	};
-	App.verticalSlide = function (dir) {
-		App.Elements.$vertical.animate({
+	App.horizontalSlide = function (dir) {
+		App.Elements.$horizontal.animate({
 			marginLeft : dir+'=100%'
 		});
 	};
-	App.horizontalSlide = function (dir) {
-		App.Elements.$horizontal.animate({
+	App.verticalSlide = function (dir) {
+		App.Elements.$vertical.animate({
 			marginTop : dir+'='+App.getWindowSize().height
 		});
 	};
