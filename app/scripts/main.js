@@ -34,6 +34,22 @@
 		$('button.vertical-controller').on('click', function () {
 			App.verticalSlide($(this).data('dir'));
 		});
+
+		// Lyssna efter tryck på piltangenterna
+		$('body').on('keyup', function (e) {
+			if (e.keyCode === 39) {
+				App.horizontalSlide('-');
+			}
+			if (e.keyCode === 37) {
+				App.horizontalSlide('+');
+			}
+			if (e.keyCode === 38) {
+				App.verticalSlide('+');
+			}
+			if (e.keyCode === 40) {
+				App.verticalSlide('-');
+			}
+		})
 	};
 	// Ta reda på webbläsarens fönsterstorlek
 	App.getWindowSize = function () {
