@@ -28,12 +28,14 @@
 
 		// Boota #vertical-slider
 		App.Elements.$vertical = $('#vertical-slider');
+		App.Elements.$verticalSlideshow = App.Elements.$vertical.find('ul');
 		App.setSliderSize(App.Elements.$vertical, 'height');
 		App.setSlidesSize($('.vertical-slide'), 'height');
 		App.horizontalSliderPosition = 0;
 		$('button.vertical-controller').on('click', function () {
 			App.verticalSlide($(this).data('dir'));
 		});
+		App.centerVerticalSlideshow($('.vertical-slide ul'));
 
 		// Lyssna efter tryck på piltangenterna
 		$('body').on('keyup', function (e) {
@@ -87,14 +89,16 @@
 			$(this).css(property, 100 / $selector.length + '%')
 		});
 	};
+	// Få den horisontella slidern att slajda
 	App.horizontalSlide = function (dir) {
 		App.Elements.$horizontal.animate({
 			marginLeft : dir+'=100%'
 		});
 	};
+	// Få den vertikala slidern att slajda
 	App.verticalSlide = function (dir) {
-		App.Elements.$vertical.animate({
-			marginTop : dir+'='+App.getWindowSize().height
+		App.Elements.$verticalSlideshow.animate({
+			marginTop : dir+'='+400+'px'
 		});
 	};
 
@@ -104,7 +108,22 @@
 	// 
 	// (Alltihop en gång till, fast för HORIZONTAL SLIDER)
 	
+	// 
+	App.Elements.ProjectImages = $('.vertical-slide ul').find('img');
+
+	// # Centrera UL
+	App.centerVerticalSlideshow = function ($el) {
+		var marginLeft = 500 / 2,
+			marginTop = 400 / 2;
+		console.log(marginLeft);
+		$el.css({
+			'margin-left': '-'+marginLeft+'px',
+			'margin-top': '-'+marginTop+'px'
+		});
+	};
+	
+}(jQuery));
+$(document).ready(function () {
 	// Lift off!
 	App.init();
-
-}(jQuery));
+});

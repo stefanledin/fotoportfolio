@@ -28,3 +28,13 @@ button {
 #vertical-slider {
 	position: relative;
 }
+.vertical-slide ul {
+	top: 50%;
+	left: 50%;
+	padding: 0;
+	position: absolute;
+	overflow: hidden;
+}
+.vertical-slide li {
+	list-style: none;
+}
