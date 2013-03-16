@@ -43,3 +43,9 @@ button {
 .vertical-slide li {
 	list-style: none;
 }
+.vertical-slide img {
+	opacity: .5;
+}
+.vertical-slide .current {
+	opacity: 1;
+}

@@ -96,10 +96,18 @@
 		});
 	};
 	// Få den vertikala slidern att slajda
+	App.verticalSlidePosition = 0;
 	App.verticalSlide = function (dir) {
+		// Positionen
+		App.verticalSlidePosition = (dir === '-') ? App.verticalSlidePosition+1 : App.verticalSlidePosition-1;
+		// Slajda
 		App.Elements.$verticalSlideshow.animate({
 			marginTop : dir+'='+400+'px'
 		});
+		// Ge rätt bild klassen .current
+		$('.current').removeClass('current');
+		$(App.Elements.ProjectImages[App.verticalSlidePosition]).addClass('current');
+
 	};
 
 	// Slide-funktion. 
@@ -110,12 +118,13 @@
 	
 	// 
 	App.Elements.ProjectImages = $('.vertical-slide ul').find('img');
+	$(App.Elements.ProjectImages[0]).addClass('current');
+
 
 	// # Centrera UL
 	App.centerVerticalSlideshow = function ($el) {
 		var marginLeft = 500 / 2,
 			marginTop = 400 / 2;
-		console.log(marginLeft);
 		$el.css({
 			'margin-left': '-'+marginLeft+'px',
 			'margin-top': '-'+marginTop+'px'
@@ -123,6 +132,7 @@
 	};
 	
 }(jQuery));
+
 $(document).ready(function () {
 	// Lift off!
 	App.init();
