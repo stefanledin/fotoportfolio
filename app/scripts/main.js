@@ -15,6 +15,9 @@
 		App.setContainerSize();
 		// Uppdatera containerns storlek om storleken på fönstret ändras.
 		$(window).resize(App.setContainerSize);
+		$(window).resize(function () {
+			App.centerVerticalSlideshow($('.vertical-slide ul'));	
+		});
 		
 		// Boota #horizontal-slider
 		App.Elements.$horizontal = $('#horizontal-slider');
@@ -124,8 +127,11 @@
 	// # Centrera UL
 	App.centerVerticalSlideshow = function ($el) {
 		var marginLeft = 500 / 2,
-			marginTop = 400 / 2;
+			marginTop = 400 / 2,
+			windowSize = App.getWindowSize();
+		console.log(windowSize.height/2);
 		$el.css({
+			'top': windowSize.height/2+'px',
 			'margin-left': '-'+marginLeft+'px',
 			'margin-top': '-'+marginTop+'px'
 		});
