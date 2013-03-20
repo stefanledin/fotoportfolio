@@ -7,38 +7,8 @@
 	// Element
 	App.Elements = {};
 
-	// # INIT
-	App.init = function () {
-		// Spara .container som jQuery-objekt
-		App.Elements.$container = $('.container');
-		// Ge containern rätt storlek
-		App.setContainerSize();
-		// Uppdatera containerns storlek om storleken på fönstret ändras.
-		$(window).resize(App.setContainerSize);
-		$(window).resize(function () {
-			App.centerVerticalSlideshow($('.vertical-slide ul'));	
-		});
-		
-		// Boota #horizontal-slider
-		App.Elements.$horizontal = $('#horizontal-slider');
-
-		App.setSliderSize(App.Elements.$horizontal, 'width');
-		App.setSlidesSize($('.horizontal-slide'), 'width');
-		App.horizontalSliderPosition = 0;
-		$('button.horizontal-controller').on('click', function () {
-			App.horizontalSlide($(this).data('dir'));
-		});
-
-		// Boota #vertical-slider
-		App.Elements.$vertical = $('#vertical-slider');
-		App.Elements.$verticalSlideshow = App.Elements.$vertical.find('ul');
-		App.setSliderSize(App.Elements.$vertical, 'height');
-		App.setSlidesSize($('.vertical-slide'), 'height');
-		App.horizontalSliderPosition = 0;
-		$('button.vertical-controller').on('click', function () {
-			App.verticalSlide($(this).data('dir'));
-		});
-		App.centerVerticalSlideshow($('.vertical-slide ul'));
+	// Events
+	App.Vents = function () {
 
 		// Lyssna efter tryck på piltangenterna
 		$('body').on('keyup', function (e) {
@@ -54,13 +24,44 @@
 			if (e.keyCode === 40) {
 				App.verticalSlide('-');
 			}
-		})
+		});
+
+		// Uppdatera storlekar när fönstrets storlek ändras
+		$(window).resize(function () {
+			App.setPageSize();
+		});
+
+		// Lyssna efter menyklick
+		$('nav a').on('click', function (e) {
+			var $previous = $('section.current').removeClass('current');
+			e.preventDefault();
+			var id = $(this).attr('href'),
+				$page = $(id);
+			$page.animate({
+				left: 0
+			}, 1000, function () {
+				$previous.removeAttr('style');
+			}).addClass('current');
+
+		});
+		
 	};
+
+	// # INIT
+	App.init = function () {
+		// Events
+		App.Vents();
+		// Spara .container som jQuery-objekt
+		App.Elements.$container = $('.container');
+		// Ge containern rätt storlek
+		App.setPageSize();		
+	};
+
 	// Ta reda på webbläsarens fönsterstorlek
 	App.getWindowSize = function () {
-		var $document = $(document),
-			width = $document.width(),
-			height = $document.height();
+		var $window = $(window),
+			width = $window.width(),
+			height = $window.height();
 		
 		return {
 			width: width,
@@ -68,72 +69,12 @@
 		};
 	};
 
-	// .container ska ha den storleken
-	App.setContainerSize = function () {
+	// Ge varje .page rätt storlek
+	App.setPageSize = function () {
 		var windowSize = App.getWindowSize();
 		App.Elements.$container.css({
 			width: windowSize.width,
 			height: windowSize.height
-		});
-	};
-	
-	// # SLIDER
-	// Ta reda på hur många slides som finns
-	App.countSlides = function ($slider) {
-		return $slider.children().length;	
-	};
-	// Räkna ut bredden på #vertical-slider. (3 slides = 300%)
-	App.setSliderSize = function ($slider, property) {
-		$slider.css(property, App.countSlides($slider) + '00%');		
-	};
-	// Räkna ut bredden på varje slide
-	App.setSlidesSize = function ($selector, property) {
-		$selector.each(function () {
-			$(this).css(property, 100 / $selector.length + '%')
-		});
-	};
-	// Få den horisontella slidern att slajda
-	App.horizontalSlide = function (dir) {
-		App.Elements.$horizontal.animate({
-			marginLeft : dir+'=100%'
-		});
-	};
-	// Få den vertikala slidern att slajda
-	App.verticalSlidePosition = 0;
-	App.verticalSlide = function (dir) {
-		// Positionen
-		App.verticalSlidePosition = (dir === '-') ? App.verticalSlidePosition+1 : App.verticalSlidePosition-1;
-		// Slajda
-		App.Elements.$verticalSlideshow.animate({
-			marginTop : dir+'='+400+'px'
-		});
-		// Ge rätt bild klassen .current
-		$('.current').removeClass('current');
-		$(App.Elements.ProjectImages[App.verticalSlidePosition]).addClass('current');
-
-	};
-
-	// Slide-funktion. 
-	// 		1. Kolla vilken position i slidern man är på.
-	// 		2. Ändra margin-left på #vertical-slider åt något håll när man klickar på något.
-	// 
-	// (Alltihop en gång till, fast för HORIZONTAL SLIDER)
-	
-	// 
-	App.Elements.ProjectImages = $('.vertical-slide ul').find('img');
-	$(App.Elements.ProjectImages[0]).addClass('current');
-
-
-	// # Centrera UL
-	App.centerVerticalSlideshow = function ($el) {
-		var marginLeft = 500 / 2,
-			marginTop = 400 / 2,
-			windowSize = App.getWindowSize();
-		console.log(windowSize.height/2);
-		$el.css({
-			'top': windowSize.height/2+'px',
-			'margin-left': '-'+marginLeft+'px',
-			'margin-top': '-'+marginTop+'px'
 		});
 	};
 	

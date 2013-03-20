@@ -15,36 +15,38 @@ button {
 	position: absolute;
 }
 
-.container {
-	overflow: hidden;
-	background: #bada55;
+nav {
+	position: relative;
+	z-index: 3;
+}
+nav li {
+	display: inline;
 }
 
-#horizontal-slider {
-	position: relative;
-	height: 100%;
+.container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
 }
-.horizontal-slide {
-	float: left;
+.page {
+	position: absolute;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
+	background: #bada55;
 }
-
-#vertical-slider {
-	position: relative;
+.current.page {
+	z-index: 2;
 }
-.vertical-slide ul {
-	left: 50%;
-	padding: 0;
-	position: absolute;
-	overflow: hidden;
+.left-offset {
+	left: -100%;
+	z-index: 1;
+	background: red;
 }
-.vertical-slide li {
-	list-style: none;
-}
-.vertical-slide img {
-	opacity: .5;
-}
-.vertical-slide .current {
-	opacity: 1;
+.right-offset {
+	left: 100%;
+	z-index: 1;
+	background: blue;
 }
