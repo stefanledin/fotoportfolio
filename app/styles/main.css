@@ -1,4 +1,5 @@
 /* Will be compiled down to a single stylesheet with your sass files */
+	
 body,
 h1,
 h2 {
@@ -9,6 +10,13 @@ h2 {
 img {
 	max-width: 100%;
 	height: auto;
+	width: auto\9;
+	/* IE7-8 need help adjusting responsive images */
+	max-width: auto; 
+	/* Part 2: Scale the height according to the width, otherwise you get stretching */
+	vertical-align: middle;
+	border: 0;
+	-ms-interpolation-mode: bicubic;
 }
 
 button {
@@ -16,7 +24,7 @@ button {
 }
 
 nav {
-	position: relative;
+	position: absolute;
 	z-index: 3;
 }
 nav li {
@@ -50,3 +58,32 @@ nav li {
 	z-index: 1;
 	background: blue;
 }
+
+.scroll {
+	height: 100%;
+	overflow: scroll;
+}
+
+/* slideshow */
+.slideshow {
+	position: relative;
+	margin: 0 auto;
+	width: 90%;
+	padding: 0;
+}
+.slideshow li{
+	margin: 0;
+	list-style: none;
+	height: 90%;
+	opacity: 1;
+}
+.slideshow img {
+	display: block;
+	margin: 0 auto;
+	max-height: 100%;
+}
+
+.slideshow li.hidden {
+	opacity: .5;
+}
+
